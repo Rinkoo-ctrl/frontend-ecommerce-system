@@ -1,0 +1,6 @@
+How to user redux?
+
+Step1:Creating a Slice (src/redux/cartSlice.js)----->cart items rkhne k lie---->initial state----->Reducers (Actions): addtocar, removefromcart, Ye functions hain jo state ko update karte hain
+Step2:Setting Up the Store (src/redux/store.js)------>alag alag slices ko combine krta hai
+Step3:Connecting Redux with React (index.js)
+Step4:Using Redux in Components----->const dispatch = useDispatch();----->dispatch(addToCart(product));
