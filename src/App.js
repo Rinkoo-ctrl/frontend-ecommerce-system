@@ -4,6 +4,7 @@ import ThemeContextProvider from "./context/ThemeContext";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ProductPage from "./pages/ProductPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import { Box } from "@mui/material";
@@ -20,6 +21,7 @@ const App = () => {
               <Route path="/" element={<ProductPage />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/product/:id" element={<ProductDetailPage />} />
             </Routes>
           </Box>
           <Footer />
