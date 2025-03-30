@@ -19,7 +19,10 @@ const sendEmail = (shippingInfo, cart) => {
     console.log("🚀 Sending Email with Params:", templateParams);  // Debugging
 
     emailjs
-        .send("service_b2hgjba", "template_hpae3bg", templateParams, "MCaqISvSz1oQtPa-S")
+        .send(process.env.REACT_APP_EMAILJS_SERVICE_ID,
+            process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+            templateParams,
+            `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}-S`)
         .then(() => {
             alert("✅ Order email sent!");
         })

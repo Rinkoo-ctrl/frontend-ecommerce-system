@@ -4,12 +4,14 @@ import ProductList from "../components/ProductList";
 import { Container, CircularProgress, Typography, Box } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 const ProductPage = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true); // loading state
     const [error, setError] = useState(null);
     const dispatch = useDispatch(); //Jab aap kisi action ko fire (dispatch) karte ho, to wo reducer function ko call karta hai aur state update hoti hai.
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios
@@ -23,6 +25,13 @@ const ProductPage = () => {
                 setLoading(false);
             });
     }, []);
+
+    const handleBuyNow = (product) => {
+
+        dispatch(addToCart(product));
+
+        navigate("/checkout");
+    };
 
     const handleAddToCart = (product) => {
         dispatch(addToCart(product));
@@ -44,7 +53,7 @@ const ProductPage = () => {
             ) : error ? (
                 <Typography color="error">{error}</Typography>
             ) : (
-                <ProductList products={products} addToCart={handleAddToCart} />
+                <ProductList products={products} addToCart={handleAddToCart} buyNow={handleBuyNow} />
             )}
         </Container>
     );
