@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ProductList from "../components/ProductList";
-import { Container } from "@mui/material";
+import { Container, CircularProgress, Typography, Box } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
 
 const ProductPage = () => {
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true); // loading state
+    const [error, setError] = useState(null);
     const dispatch = useDispatch(); //Jab aap kisi action ko fire (dispatch) karte ho, to wo reducer function ko call karta hai aur state update hoti hai.
 
     useEffect(() => {
-        axios.get("https://fakestoreapi.com/products").then((response) => {
-            setProducts(response.data);
-        });
+        axios
+            .get("https://fakestoreapi.com/products")
+            .then((response) => {
+                setProducts(response.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                setError("Failed to load products.");
+                setLoading(false);
+            });
     }, []);
 
     const handleAddToCart = (product) => {
@@ -21,7 +30,22 @@ const ProductPage = () => {
 
     return (
         <Container sx={{ mt: 4 }}>
-            <ProductList products={products} addToCart={handleAddToCart} />
+            {loading ? (
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        minHeight: "80vh", // adjust as needed
+                    }}
+                >
+                    <CircularProgress />
+                </Box>
+            ) : error ? (
+                <Typography color="error">{error}</Typography>
+            ) : (
+                <ProductList products={products} addToCart={handleAddToCart} />
+            )}
         </Container>
     );
 };
