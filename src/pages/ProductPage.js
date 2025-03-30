@@ -27,10 +27,7 @@ const ProductPage = () => {
     }, []);
 
     const handleBuyNow = (product) => {
-
-        dispatch(addToCart(product));
-
-        navigate("/checkout");
+        navigate("/checkout", { state: { product } });
     };
 
     const handleAddToCart = (product) => {
