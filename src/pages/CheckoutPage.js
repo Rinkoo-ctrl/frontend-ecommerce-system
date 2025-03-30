@@ -71,7 +71,7 @@ const CheckoutPage = () => {
                             Order Summary:
                         </Typography>
                         <List>
-                            {cart.map((item) => (
+                            {checkoutItems.map((item) => (
                                 <ListItem key={item.id} sx={{ py: 1 }}>
                                     <ListItemText
                                         primary={
