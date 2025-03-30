@@ -2,16 +2,16 @@ import React from "react";
 import Product from "./Product";
 import { Grid, Box } from "@mui/material";
 
-const ProductList = ({ products, addToCart }) => {
+const ProductList = ({ products, addToCart, buyNow }) => {
     return (
         <Box sx={{ mt: 4 }}>
             {/* <Typography variant="h4" gutterBottom align="center">
-                Products
-            </Typography> */}
-            <Grid container spacing={4} justifyContent="center">
+        Products
+      </Typography> */}
+            <Grid container spacing={9} justifyContent="center">
                 {products.map((product) => (
                     <Grid item key={product.id}>
-                        <Product product={product} addToCart={addToCart} />
+                        <Product product={product} addToCart={addToCart} buyNow={buyNow} />
                     </Grid>
                 ))}
             </Grid>
@@ -20,4 +20,3 @@ const ProductList = ({ products, addToCart }) => {
 };
 
 export default ProductList;
-    
