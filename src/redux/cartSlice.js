@@ -6,16 +6,35 @@ const initialState = {
 
 const cartSlice = createSlice({
     name: "cart",
-    initialState, //cart is empty
-    reducers: { //Actions
+    initialState,
+    reducers: {
         addToCart(state, action) {
-            state.items.push(action.payload);
+            const product = action.payload;
+
+            const existingProduct = state.items.find((item) => item.id === product.id);
+            if (existingProduct) {
+                existingProduct.quantity = (existingProduct.quantity || 1) + 1;
+            } else {
+                state.items.push({ ...product, quantity: 1 });
+            }
         },
         removeFromCart(state, action) {
             state.items = state.items.filter((item) => item.id !== action.payload);
         },
+
+        decreaseQuantity(state, action) {
+            const productId = action.payload;
+            const existingProduct = state.items.find((item) => item.id === productId);
+            if (existingProduct) {
+                if (existingProduct.quantity > 1) {
+                    existingProduct.quantity -= 1;
+                } else {
+                    state.items = state.items.filter((item) => item.id !== productId);
+                }
+            }
+        },
     },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions; //components me use kiya ja sake
-export default cartSlice.reducer; //store me add ho sake.
+export const { addToCart, removeFromCart, decreaseQuantity } = cartSlice.actions;
+export default cartSlice.reducer;
