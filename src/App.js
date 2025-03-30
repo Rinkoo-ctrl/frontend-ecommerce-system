@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ProductList from "./components/ProductList";
 import Cart from "./components/Cart";
+import { Container, Typography } from "@mui/material";
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -22,24 +23,24 @@ const App = () => {
       });
   }, []);
 
-  // 🛒 Cart me add karna
   const addToCart = (product) => {
     setCart([...cart, product]);
   };
 
-  // 🗑 Cart se remove karna
   const removeFromCart = (id) => {
     setCart(cart.filter((item) => item.id !== id));
   };
 
   return (
-    <div>
-      <h1>E-commerce Store</h1>
-      {loading && <p>Loading products...</p>}
-      {error && <p>{error}</p>}
+    <Container>
+      <Typography variant="h3" component="h2" align="center" gutterBottom>
+        E-commerce Store 🛍️
+      </Typography>
+      {loading && <Typography>Loading products...</Typography>}
+      {error && <Typography color="error">{error}</Typography>}
       {!loading && !error && <ProductList products={products} addToCart={addToCart} />}
       <Cart cart={cart} removeFromCart={removeFromCart} />
-    </div>
+    </Container>
   );
 };
 
