@@ -97,11 +97,11 @@ const Cart = ({ cart }) => {
                     </List>
 
                     {/* Total Price & Checkout Button in one line */}
-                    <Box 
-                        sx={{ 
-                            mt: 3, 
-                            display: "flex", 
-                            justifyContent: "space-between", 
+                    <Box
+                        sx={{
+                            mt: 3,
+                            display: "flex",
+                            justifyContent: "space-between",
                             alignItems: "center"
                         }}
                     >
