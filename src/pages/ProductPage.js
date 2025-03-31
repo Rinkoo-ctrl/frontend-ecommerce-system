@@ -10,12 +10,15 @@ import {
     Select,
     MenuItem,
     TextField,
-
     InputAdornment,
     IconButton,
+    Button,
+    Snackbar,
+    Alert
 } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
 import { useNavigate } from "react-router-dom";
@@ -28,6 +31,8 @@ const ProductPage = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(true); // loading state
     const [error, setError] = useState(null);
+    const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "info" });
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -80,9 +85,27 @@ const ProductPage = () => {
     const handleClearSearch = () => {
         setSearchTerm("");
     };
+
+    const handleLogout = () => {
+        localStorage.removeItem("loggedInUser"); // Remove logged-in user data
+        setSnackbar({ open: true, message: "Logged out successfully!", severity: "success" });
+
+        // Redirect to Login page after 1.5 seconds
+        setTimeout(() => navigate("/login"), 1500);
+    };
+
     return (
         <Container sx={{ mt: 4 }}>
-
+            <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    startIcon={<LogoutIcon />}
+                    onClick={handleLogout}
+                >
+                    Logout
+                </Button>
+            </Box>
             <Box
                 sx={{
                     display: "flex",
@@ -152,6 +175,17 @@ const ProductPage = () => {
             ) : (
                 <ProductList products={displayedProducts} addToCart={handleAddToCart} buyNow={handleBuyNow} />
             )}
+
+            <Snackbar
+                open={snackbar.open}
+                autoHideDuration={3000}
+                onClose={() => setSnackbar({ ...snackbar, open: false })}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }} // Positioned at top-right
+            >
+                <Alert onClose={() => setSnackbar({ ...snackbar, open: false })} severity={snackbar.severity} sx={{ width: "100%" }}>
+                    {snackbar.message}
+                </Alert>
+            </Snackbar>
         </Container>
     );
 };

@@ -65,7 +65,7 @@ const CheckoutPage = () => {
         }
 
         setTimeout(() => {
-            navigate("/");
+            navigate("/dashboard");
         }, 3000); // Redirect to home after 3 seconds
     };
 

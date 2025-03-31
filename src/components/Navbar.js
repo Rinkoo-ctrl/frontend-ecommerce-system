@@ -40,7 +40,7 @@ const Navbar = () => {
         >
             <Toolbar>
                 <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                    <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+                    <Link to="/dashboard" style={{ textDecoration: "none", color: "inherit" }}>
                         🛍️ E-commerce Store
                     </Link>
                 </Typography>
@@ -57,7 +57,7 @@ const Navbar = () => {
                         >
                             <MenuItem onClick={handleMenuClose}>
                                 <Link
-                                    to="/"
+                                    to="/dashboard"
                                     style={{ textDecoration: "none", color: "inherit" }}
                                 >
                                     Products
@@ -98,7 +98,7 @@ const Navbar = () => {
                                 },
                             }}
                         >
-                            <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+                            <Link to="/dashboard" style={{ textDecoration: "none", color: "inherit" }}>
                                 🏷️ PRODUCTS
                             </Link>
                         </Button>
