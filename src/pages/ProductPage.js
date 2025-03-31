@@ -99,12 +99,13 @@ const ProductPage = () => {
             <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
                 <Button
                     variant="contained"
-                    color="secondary"
+                    sx={{ bgcolor: "primary" }}
                     startIcon={<LogoutIcon />}
                     onClick={handleLogout}
                 >
                     Logout
                 </Button>
+
             </Box>
             <Box
                 sx={{
