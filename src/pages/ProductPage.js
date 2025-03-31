@@ -10,7 +10,7 @@ import {
     Select,
     MenuItem,
     TextField,
-    Paper,
+
     InputAdornment,
     IconButton,
 } from "@mui/material";
@@ -82,68 +82,58 @@ const ProductPage = () => {
     };
     return (
         <Container sx={{ mt: 4 }}>
-            {/* Search and Category Selector */}
-            <Paper
-                elevation={1}
+
+            <Box
                 sx={{
-                    p: 2,
-                    mb: 3,
-                    borderRadius: 1,
-                    border: '1px solid #e0e0e0',
+                    display: "flex",
+                    flexDirection: { xs: "column", sm: "row" },
+                    gap: 2,
                 }}
             >
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: { xs: "column", sm: "row" },
-                        gap: 2,
+                <TextField
+                    fullWidth
+                    label="Search"
+                    variant="outlined"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    size="small"
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                {searchTerm && (
+                                    <IconButton onClick={handleClearSearch} edge="end" size="small">
+                                        <ClearIcon />
+                                    </IconButton>
+                                )}
+                                <SearchIcon />
+                            </InputAdornment>
+                        ),
                     }}
-                >
-                    <TextField
-                        fullWidth
-                        label="Search"
-                        variant="outlined"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        size="small"
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    {searchTerm && (
-                                        <IconButton onClick={handleClearSearch} edge="end" size="small">
-                                            <ClearIcon />
-                                        </IconButton>
-                                    )}
-                                    <SearchIcon />
-                                </InputAdornment>
-                            ),
-                        }}
+                    sx={{
+                        "& .MuiInputBase-input": { fontSize: '0.9rem' },
+                    }}
+                />
+                <FormControl fullWidth size="small">
+                    <Select
+                        value={selectedCategory}
+                        onChange={(e) => setSelectedCategory(e.target.value)}
+                        displayEmpty
                         sx={{
-                            "& .MuiInputBase-input": { fontSize: '0.9rem' },
+                            "& .MuiSelect-select": {
+                                fontSize: '0.9rem',
+                                textTransform: "capitalize",
+                            },
                         }}
-                    />
-                    <FormControl fullWidth size="small">
-                        <Select
-                            value={selectedCategory}
-                            onChange={(e) => setSelectedCategory(e.target.value)}
-                            displayEmpty
-                            sx={{
-                                "& .MuiSelect-select": {
-                                    fontSize: '0.9rem',
-                                    textTransform: "capitalize",
-                                },
-                            }}
-                        >
-                            <MenuItem value="all" sx={{ fontSize: '0.9rem', textTransform: "capitalize" }}>All</MenuItem>
-                            {categories.map((cat) => (
-                                <MenuItem key={cat} value={cat} sx={{ fontSize: '0.9rem', textTransform: "capitalize" }}>
-                                    {cat}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </Box>
-            </Paper>
+                    >
+                        <MenuItem value="all" sx={{ fontSize: '0.9rem', textTransform: "capitalize" }}>All</MenuItem>
+                        {categories.map((cat) => (
+                            <MenuItem key={cat} value={cat} sx={{ fontSize: '0.9rem', textTransform: "capitalize" }}>
+                                {cat}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+            </Box>
 
             {/* Product List */}
             {loading ? (

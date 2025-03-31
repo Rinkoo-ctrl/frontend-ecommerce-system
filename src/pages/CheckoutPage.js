@@ -12,6 +12,8 @@ import {
     ListItem,
     ListItemText,
     Grid,
+    Snackbar,
+    Alert
 } from "@mui/material";
 import { clearCart } from "../redux/cartSlice";
 import sendEmail from "../utils/sendEmail";
@@ -38,6 +40,10 @@ const CheckoutPage = () => {
         country: "",
     });
 
+    const [openSnackbar, setOpenSnackbar] = useState(false); // Snackbar state
+    const [snackbarMessage, setSnackbarMessage] = useState(""); // Snackbar message
+
+
     const handleChange = (e) => {
         setShippingInfo({ ...shippingInfo, [e.target.name]: e.target.value });
     };
@@ -50,12 +56,17 @@ const CheckoutPage = () => {
         }
 
         sendEmail(shippingInfo, checkoutItems);
-        alert("Order placed successfully!");
+        // alert("Order placed successfully!");
+        setSnackbarMessage("Order placed successfully! Email sent."); // Message to show
+        setOpenSnackbar(true);
 
         if (!selectedProduct) {
             dispatch(clearCart()); // Only clear cart if coming from cart
         }
-        navigate("/");
+
+        setTimeout(() => {
+            navigate("/");
+        }, 3000); // Redirect to home after 3 seconds
     };
 
     return (
@@ -171,6 +182,16 @@ const CheckoutPage = () => {
                     </Grid>
                 </Grid>
             </Paper>
+            <Snackbar
+                open={openSnackbar}
+                autoHideDuration={3000}
+                onClose={() => setOpenSnackbar(false)}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+                <Alert onClose={() => setOpenSnackbar(false)} severity="success" sx={{ width: "100%" }}>
+                    {snackbarMessage}
+                </Alert>
+            </Snackbar>
         </Container>
     );
 };

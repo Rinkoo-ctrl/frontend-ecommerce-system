@@ -24,10 +24,10 @@ const sendEmail = (shippingInfo, cart) => {
             templateParams,
             `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}-S`)
         .then(() => {
-            alert("✅ Order email sent!");
+            // alert("✅ Order email sent!");
         })
         .catch((error) => {
-            alert("❌ Email failed to send.");
+            // alert("❌ Email failed to send.");
             console.error("EmailJS error:", error);
         });
 };
