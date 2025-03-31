@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Container, TextField, Button, Typography, Paper, Box, Snackbar, Alert } from "@mui/material";
 
 const Signup = () => {
@@ -43,13 +43,14 @@ const Signup = () => {
                     <Button type="submit" variant="contained" color="primary" fullWidth>Signup</Button>
                 </Box>
                 <Typography variant="body2" sx={{ mt: 2 }}>
-                    Already have an account? <a href="/login">Login</a>
+                    {/* Already have an account? <a href="/login">Login</a> */}
+                    Already have an account? <Link to="/login" style={{ textDecoration: "none", color: "#1976d2" }}>Login</Link>
                 </Typography>
 
                 {/* Snackbar for notifications (Top-Right Position) */}
-                <Snackbar 
-                    open={snackbar.open} 
-                    autoHideDuration={3000} 
+                <Snackbar
+                    open={snackbar.open}
+                    autoHideDuration={3000}
                     onClose={() => setSnackbar({ ...snackbar, open: false })}
                     anchorOrigin={{ vertical: "top", horizontal: "right" }} // Position at top-right
                 >
